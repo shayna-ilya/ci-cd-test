@@ -1,0 +1,16 @@
+name: Deploy buy runner
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: docker-build
+        run: docker build -t nextjs-docker .
+      - name: docker-run
+        run: docker run -p 3000:3000 nextjs-docker
